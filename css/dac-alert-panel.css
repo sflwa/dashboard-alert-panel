@@ -256,16 +256,16 @@
 
 /* Admin bar alert label color */
 /* Targeting the span directly within the admin bar item's ID, with higher specificity */
-#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-has-alerts {
+#wp-admin-bar-dap-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-has-alerts {
     color: #dc3232 !important; /* Red color for alerts */
 }
 
-#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-has-alerts::before {
+#wp-admin-bar-dap-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-has-alerts::before {
     color: #dc3232 !important; /* Red color for alerts */
 }
 
-#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-no-alerts,
-#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-no-alerts {
+#wp-admin-bar-dap-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-no-alerts,
+#wp-admin-bar-dap-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-no-alerts {
     color: #a0a5aa !important; /* Default grey color for no alerts */
 }
 
