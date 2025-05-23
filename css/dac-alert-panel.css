@@ -1,0 +1,280 @@
+/* css/dac-alert-panel.css */
+#dac-alert-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999; /* Ensure it's above other elements */
+    display: none; /* Hidden by default */
+    opacity: 0; /* Start with transparent overlay */
+    transition: opacity 0.3s ease-in-out;
+}
+
+#dac-alert-panel-overlay.is-open {
+    display: block; /* Show the overlay when open */
+    opacity: 1; /* Fade in the overlay */
+}
+
+#dac-alert-panel-content {
+    position: fixed;
+    top: 0;
+    right: -40%; /* Start off-screen to the right */
+    width: 40%; /* 40% width for desktop */
+    height: 100%;
+    background: #e3e3e3;
+    padding: 20px;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Enable scrolling if content is too long */
+    transition: right 0.3s ease-in-out; /* Smooth slide transition */
+    z-index: 100000; /* Ensure content is above overlay */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+}
+
+#dac-alert-panel-overlay.is-open #dac-alert-panel-content {
+    right: 0; /* Slide into view */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 782px) { /* WordPress admin bar breakpoint */
+    #dac-alert-panel-content {
+        width: 100%; /* Full width on smaller screens */
+        right: -100%; /* Start off-screen to the right */
+    }
+
+    #dac-alert-panel-overlay.is-open #dac-alert-panel-content {
+        right: 0; /* Slide into view */
+    }
+}
+
+#dac-alert-panel-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s ease-in-out;
+    z-index: 10; /* Ensure close button is above tabs */
+}
+
+#dac-alert-panel-close:hover {
+    color: #333;
+}
+
+#dac-alert-panel-content h3.panel-title {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px; /* Space below title */
+}
+
+/* Tab styling */
+.dac-tabs {
+    flex-grow: 1; /* Allow tabs content to take available space */
+    display: flex;
+    flex-direction: column;
+}
+
+.dac-tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.dac-tab-button {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap; /* Prevent text wrapping inside buttons */
+    margin-right: 5px; /* Small space between buttons */
+    margin-bottom: -1px; /* Overlap with border-bottom of container */
+}
+
+.dac-tab-button:hover {
+    color: #0073aa; /* Default hover color */
+}
+
+.dac-tab-button.active {
+    color: #0073aa;
+    border-bottom-color: #0073aa;
+}
+
+/* Specific background colors for hover and active states */
+.dac-tab-button[data-tab="info-tab"]:hover,
+.dac-tab-button[data-tab="info-tab"].active {
+    background-color: #fff3cd; /* Light yellow for information */
+    color: #664d03; /* Darker text for contrast */
+    border-bottom-color: #ffc107;
+}
+
+.dac-tab-button[data-tab="success-tab"]:hover,
+.dac-tab-button[data-tab="success-tab"].active {
+    background-color: #d1e7dd; /* Light green for success */
+    color: #0f5132; /* Darker text for contrast */
+    border-bottom-color: #198754;
+}
+
+.dac-tab-button[data-tab="error-tab"]:hover,
+.dac-tab-button[data-tab="error-tab"].active {
+    background-color: #f8d7da; /* Light red for alerts/errors */
+    color: #842029; /* Darker text for contrast */
+    border-bottom-color: #dc3545;
+}
+
+/* Hide the Total tab button and its content */
+.dac-tab-button[data-tab="total-tab"] {
+    display: none;
+}
+
+#total-tab {
+    display: none;
+} 
+
+.dac-tab-content {
+    flex-grow: 1; /* Allow tab content to take remaining space */
+    overflow-y: auto; /* Enable scrolling within tab content if needed */
+    padding-right: 10px; /* Add some padding for scrollbar */
+}
+
+.dac-tab-pane {
+    display: none; /* Hide all panes by default */
+}
+
+.dac-tab-pane.active {
+    display: block; /* Show active pane */
+}
+
+.dac-tab-pane h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #444;
+    font-size: 1.2em;
+}
+
+/* Common styling for containers that will hold cloned alerts */
+#dac-info-alerts-container,
+#dac-success-alerts-container,
+#dac-error-alerts-container {
+    padding: 0; /* Remove default padding */
+    list-style: none; /* Remove list style if it was ul */
+}
+
+/* Styling for the cloned alerts themselves to mimic dashboard appearance */
+#dac-info-alerts-container .notice,
+#dac-info-alerts-container .updated,
+#dac-info-alerts-container .error,
+#dac-info-alerts-container .success,
+#dac-info-alerts-container .info,
+#dac-info-alerts-container .notice-info,
+#dac-info-alerts-container .notice-success,
+#dac-info-alerts-container .notice-error,
+#dac-info-alerts-container .notice-warning,
+#dac-success-alerts-container .notice,
+#dac-success-alerts-container .updated,
+#dac-success-alerts-container .error,
+#dac-success-alerts-container .success,
+#dac-success-alerts-container .info,
+#dac-success-alerts-container .notice-info,
+#dac-success-alerts-container .notice-success,
+#dac-success-alerts-container .notice-error,
+#dac-success-alerts-container .notice-warning,
+#dac-error-alerts-container .notice,
+#dac-error-alerts-container .updated,
+#dac-error-alerts-container .error,
+#dac-error-alerts-container .success,
+#dac-error-alerts-container .info,
+#dac-error-alerts-container .notice-info,
+#dac-error-alerts-container .notice-success,
+#dac-error-alerts-container .notice-error,
+#dac-error-alerts-container .notice-warning {
+    margin: 0 0 15px 0; /* Add margin between alerts */
+    padding: 10px; /* Standard padding */
+    border-left: 4px solid; /* Standard WordPress notice border */
+    box-shadow: 0 1px 1px rgba(0,0,0,.04); /* Standard shadow */
+    border-radius: 3px; /* Standard border radius */
+    word-wrap: break-word; /* Prevent overflow of long text/links */
+    display: block !important; /* Force display to block to ensure visibility */
+}
+
+/* Re-apply WordPress notice colors for consistency */
+#dac-info-alerts-container .notice-info,
+#dac-info-alerts-container .info,
+#dac-info-alerts-container .notice, /* Also apply to generic .notice for info */
+#dac-info-alerts-container .updated { /* And .updated for info */
+    border-color: #00a0d2;
+    background-color: #e7f5fe; /* Light blue for info notices */
+}
+
+#dac-success-alerts-container .notice-success,
+#dac-success-alerts-container .success {
+    border-color: #46b450;
+    background-color: #e6ffe6; /* Light green for success notices */
+}
+
+#dac-error-alerts-container .notice-error,
+#dac-error-alerts-container .error,
+#dac-error-alerts-container .notice-warning {
+    border-color: #dc3232;
+    background-color: #ffebe8; /* Light red for error/warning notices */
+}
+
+/* General list item styling for info and success tabs (which now use divs) */
+/* These rules are now less relevant as content is directly appended to containers */
+.dac-tab-pane ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding: 0;
+}
+
+.dac-tab-pane li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+    color: #333;
+}
+
+.dac-tab-pane .no-alerts-message {
+    font-style: italic;
+    color: #777;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Admin bar alert label color */
+/* Targeting the span directly within the admin bar item's ID, with higher specificity */
+#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-has-alerts {
+    color: #dc3232 !important; /* Red color for alerts */
+}
+
+#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-has-alerts::before {
+    color: #dc3232 !important; /* Red color for alerts */
+}
+
+#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-label.dac-no-alerts,
+#wp-admin-bar-dac-alert-counter > .ab-item > #dac-admin-bar-alert-icon.dac-no-alerts {
+    color: #a0a5aa !important; /* Default grey color for no alerts */
+}
+
+
+#dac-info-alerts-container .update-nag,
+#dac-info-alerts-container .notice,
+#dac-info-alerts-container  .error,
+#dac-info-alerts-container  .is-dismissible,
+#dac-info-alerts-container  .settings-error,
+#dac-info-alerts-container .updated {
+    display: block !important;
+}
